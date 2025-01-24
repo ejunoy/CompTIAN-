@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1737616614.74937 "Network.tex" "Network.pdf" "Network" 1737616614.9865 0
+["pdflatex"] 1737678768.64667 "Network.tex" "Network.pdf" "Network" 1737678768.9018 0
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1727349926 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1727349926 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1727349926 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -37,9 +37,10 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1737441546.52752 5312047 b07fcd2a9090df96fc745b92a3db793b ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1737441520 7113000 4f13dc0063312bcf06c0b68d32dcb31a ""
   "Datagrama.png" 1737616499.9395 34090 68c7730ab98a2a5b3edc05fddbffc149 ""
+  "Frame-Paquete.png" 1737672300.72674 68909 afa6834a68bbc7ffa776f3f56eff56f4 ""
   "Frame.png" 1737575224.61272 29790 0d0bdfff98cfd90d2f7b335c1a691b0a ""
-  "Network.aux" 1737616614.95842 2566 db1b3c3dbb29eef29eab749622c46c27 "pdflatex"
-  "Network.tex" 1737616613.49533 29570 99be75799b0b5264a8924a1640077c47 ""
+  "Network.aux" 1737678768.86819 3955 822a9eb4dc4a2fb11265c75a7b709d6d "pdflatex"
+  "Network.tex" 1737678768.28486 39186 a35460e19747d52f345c9e78e4357f2f ""
   "Paquete.png" 1737612043.90421 47019 7a35c5aafd468e34488c38e0556677b4 ""
   "Segmento.png" 1737615838.75543 26005 2ecf09f3749d0b809739dafb0b1e34f1 ""
   (generated)

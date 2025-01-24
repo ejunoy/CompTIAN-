@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2025.1.21)  23 JAN 2025 01:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2025.1.21)  23 JAN 2025 18:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -134,43 +134,80 @@ Overfull \hbox (0.12651pt too wide) in paragraph at lines 191--216
 <Paquete.png, id=39, 751.80875pt x 103.38625pt>
 File: Paquete.png Graphic file (type png)
 <use Paquete.png>
-Package pdftex.def Info: Paquete.png  used on input line 374.
+Package pdftex.def Info: Paquete.png  used on input line 376.
 (pdftex.def)             Requested size: 312.00119pt x 42.90607pt.
- [11 <./Paquete.png (PNG copy)>] [12]
-Overfull \hbox (28.89613pt too wide) in paragraph at lines 419--419
-[]\OT1/cmr/bx/n/14.4 Comunicaci^^Son ori-en-tada a la conexi^^Son vs sin conexi^^Son 
+<Frame-Paquete.png, id=40, 785.93625pt x 241.90375pt>
+File: Frame-Paquete.png Graphic file (type png)
+<use Frame-Paquete.png>
+Package pdftex.def Info: Frame-Paquete.png  used on input line 386.
+(pdftex.def)             Requested size: 312.00119pt x 96.03262pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[11 <./Paquete.png (PNG copy)>] [12 <./Frame-Paquete.png (PNG copy)>]
+Overfull \hbox (10.7445pt too wide) in paragraph at lines 435--435
+[]\OT1/cmr/bx/n/14.4 Comunicaci^^Son basada en conexi^^Son vs. sin conexi^^Son 
  []
 
-<Segmento.png, id=46, 655.44875pt x 53.19875pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 436--443
+
+ []
+
+<Segmento.png, id=47, 655.44875pt x 53.19875pt>
 File: Segmento.png Graphic file (type png)
 <use Segmento.png>
-Package pdftex.def Info: Segmento.png  used on input line 441.
+Package pdftex.def Info: Segmento.png  used on input line 459.
 (pdftex.def)             Requested size: 312.00119pt x 25.32323pt.
-[13 <./Segmento.png (PNG copy)>]
-<Datagrama.png, id=51, 652.4375pt x 78.2925pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[13]
+<Datagrama.png, id=52, 652.4375pt x 78.2925pt>
 File: Datagrama.png Graphic file (type png)
 <use Datagrama.png>
-Package pdftex.def Info: Datagrama.png  used on input line 462.
+Package pdftex.def Info: Datagrama.png  used on input line 486.
 (pdftex.def)             Requested size: 312.00119pt x 37.44138pt.
- [14 <./Datagrama.png (PNG copy)>] (./Network.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 491--505
+
+ []
+
+[14 <./Segmento.png (PNG copy)> <./Datagrama.png (PNG copy)>]
+Overfull \hbox (0.66968pt too wide) in paragraph at lines 510--520
+\OT1/cmr/m/n/12 caci^^Son TCP o UDP. Pode-moms ver la sesi^^Son de un bus-cador web conect^^Sandose
+ []
+
+
+Overfull \hbox (16.55376pt too wide) in paragraph at lines 522--525
+[]\OT1/cmr/m/n/12 Los n^^Sumeros de-scriben la sesi^^Son. Un cliente web con di-recci^^Son IP 192.168.4.34
+ []
+
+[15] [16]
+Overfull \hbox (7.13292pt too wide) in paragraph at lines 574--606
+\OT1/cmr/m/n/12 Beth se conecta el in-ter-net de forma inal^^Sambrica desde su lapotp. Su compa~n^^S^^Pa,
+ []
+
+[17] [18] [19] (./Network.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 1368 strings out of 476076
- 21811 string characters out of 5793775
+ 1376 strings out of 476076
+ 22032 string characters out of 5793775
  1938187 words of memory out of 5000000
- 23508 multiletter control sequences out of 15000+600000
+ 23516 multiletter control sequences out of 15000+600000
  564234 words of font info for 56 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  57i,7n,65p,207b,232s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Network.pdf (14 pages, 229956 bytes).
+Output written on Network.pdf (19 pages, 311353 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
- 46 compressed objects within 1 object stream
+ 92 PDF objects out of 1000 (max. 8388607)
+ 57 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -363,104 +363,276 @@ está almacenada en el software del sistema. Las direcciones MAC vienen con las 
 no hay que configurarlas, pero las direcciones IP sí hay que configurarlas.
 
 \subsection{Paquetes dentro de frames}
-Para que una red TCP/IP mande información correctamente, los datos deben estár envueltos
-en dos contenedores distintos. Un frame de algún tipo permite que los datos 
-se muevan de un dispositivo a otro. Dentro de ese frame hay tanto 
-un contenedor IP-específico que permite que lo routers determinen a dónde mandar los datos,
-como los datos mismos. En TCP/IP, ese contenedor interno es un paquete.
+Para que una red TCP/IP mande datos de forma exitosa, los datos
+deben estar envueltos en dos contenedores distintos.
+Un frame de algún tipo permite que los datos se muevan de un 
+dispositivo a otro. Dentro de ese frame hay un contenedor IP-específico
+que permite que los routers determinen a dónde mandar los datos
+-independientemente del tipo de conexión física- y los datos mismos.
+En TCP/IP, el contenedor interno es un paquete.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]{Paquete.png}
+\caption{Paquete IP}
 \end{figure}
 
-Cada paquete IP es pasado a la NIC, que después envuelve ese paquete IP en un frame regular, creando,
-en esencia, un paquete dentro de un frame.\\
-Cuando mandamos datos de una computadora a otra en una red TCP/IP como el internet,
-esos datos pueden pasar por muchos routers antes de llegar a su destino. 
-Cada router quita el frame, determina a dónde mandar los datos de acuerdo con la dirección IP del paquete,
-crea un nuevo frame, y luego manda el paquete dentro del frame al siguiente lugar.
-El nuevo tipo de frame es de la tecnología adecuada según la tecnología que
-conecta al siguiente router. Eso podría ser un cable o una conexión de red DSL, 
-por ejemplo. El paquete IP, por otro lado, se mantiene sin cambiar.\\
-Una vez que el paquete llega al router de la subred de destino, ese router quita el frame que llegó,
-ve la dirección IP, y añade otro frame con la dirección MAC de destino adecuada que 
-encaja con la dirección IP de destino. La NIC receptora quira el Ethernet frame y pasa el resto del paquete
-al software. El software de red del sistema operativo maneja el resto del trabajo.
-El software del driver del NIC es la interconexión entre el hardware y el software.
-El driver del NIC sabe como comunicarse con el NIC para mandar y recibir frames, pero 
-no puede hacer nada con el paquete. En su lugar, el driver del NIC manda el paquete a otros servicios
-que saben cómo manejar los paquetes separados y convertirlos en páginas web, mensajes de mail,
-archivos y otros.
+Pero los paquetes IP no se van desnudos. Cada paquete IP es entregado
+a la NIC, que depués lo encapsula dentro de un frame normal,
+en esencia, un paquete dentro de un frame.
 
-\subsection{Segmentación y reensamble - Capa 4, la capa de transporte}
-Como la mayoría de cachos de datos son más grandes que un sólo paquete, deben
-romperse antes de mandarse por una red.
-Cuando una computadora servidor recibe una petición por algunos datos, debe ser
-capaz de romper los datos en cachos que caben en un paquete y, eventualmente 
-en un frame de un NIC, organizar los paquetes para el beneficio del sistema receptor, 
-y dárselos al NIC para mandarlos. Esto es llamado segmentación. 
-El sistema receptor hace el reensamble de los paquetes. Debe reconocer 
-una serie de paquetes que llegan como una sola transmisión de datos, 
-reensablar los paquetes correctamente basado en la información incluida en lo s
-paquetes por el sistema emisor, y verificar que todos los paquetes de los datos
-llegaron de manera correcta.\\
-Esta parte es relativamente sencilla - el protocolo de transporte rompe los 
-datos en chunks llamados segmentos y le da a cada segmento un tipo de nùmero.
-(Los datagramas, también creados en la capa 4, son más simples y no se rompen en cachos
-o tienen números de secuencia).
-Encajado en los datos de cada paquete que contiene un segmento hay un número de secuencia.
-Leyendo el número de secuencia, el sistema receptor sabe tanto el número total de segmentos 
-como el cómo ponerlos en su lugar.\\
-La capa de transporte, la capa 4 del modelo OSI, tiene un trabajo grande:
-es el software de segmentación/reensamblado. Como parte de su trabajo,
-la capa de transporte también inicia peticiones para paquetes que no fueron recibidos en el orden correcto.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{Frame-Paquete.png}
+\caption{Paquete IP dentro de un frame}
+\end{figure}
 
-\subsection{Comunicación orientada a la conexión vs sin conexión}
-Algunos protocolos, como Simple Mail Transfer Protocol (SMTP) usado para 
-mandar mensajes de e-mail, requieren que el cliente y el servidor verifiquen que hay
-una conexión antes de mandar un mensaje. Esto hace sentido, pues no queremos que 
-nuestro correo llegue todo corrupto.\\
-Alternativamente, un número de protocolos de TCP/IP mandan datos sin esparar 
-a verificar que el sistema receptor esté listo.
-Cuando usamos Voice over IP (VoIP), por ejemplo, la llamada se hace sin verificar
-primero que el otro dispositivo esté ahí.
-El protocolo orientado a la conexión es el Transmission Control Protocol.
+Cuando mandamos datos de una computadora a otra en una red TCP/IP
+como el internet, esos datos pueden pasar por muchos routers antes
+de llegar a su destino. Cada router quita el frame que le llega, determina
+a dónde mandar los datos de acuerdo con la dirección IP del paquete,
+crea un nuevo frame y manda ese paquete dentro del frame a la siguiente 
+parada. El nuevo tipo de frame será de la tecnología apropiada para
+que llegue al siguiente router. Podría ser un cable o una conexión 
+DSL. El paquete IP, por otro lado, permanece sin cambiarse.\\
+Una vez que el paquete llega al router de la subred de destino, 
+ese router quita el frame, ve la IP de destino, y añade un frame
+con la dirección MAC apropiada para esa dirección IP.\\
+La NIC receptora queita el frame de Ethernet y pasa el paquete al 
+software. El software de red del sistema operativo hace el resto.
+El software del driver de la NIC es la interconexión entre el hardware
+y el software. El driver del NIC sabe como comunicarse con la NIC para 
+mandar y recibir frames, pero no puede hacer nada con los paquetes.
+En su lugar, el driver del NIC manda el paquete a otros servicios
+que saben cómo manejar los paquetes para convertirlos en páginas web,
+mensajes de e-mail, archivos y demás.
+
+\subsection{Segmentación y reensamblado -Capa de transporte, capa 4}
+Como la mayoría de bloques de datos son mucho más grandes que un 
+solo paquete, deben ser rotos antes de que se pueden mandar por la red.
+Cuando una computadora "serving" recibe una petición para algunos datos,
+debe ser capaz de romper los datos pedidos en bloques que quepan
+dentro de un paquete (y eventualmente en un frame de una NIC),
+organizar los paquetes para el beneficio del sistema receptor, y darlos
+a la NIC para enviar. Esto es llamado $\textit{segmentación}$.
+El sistema receptor hace el $\textit{reensamlado}$ de los paquetes.
+Debe reconocer una serie de paquetes como una transmisión de los mismos datos,
+reensamblar los paquetes correctamente basandose en la información 
+incluida en los paquetes del sistema emisor, y verificar que todos
+los paquetes de un pedazo de datos lleguen de buena manera.\\
+Esta parte es relativamente sencilla -el protocolo de transporte 
+rompe los datos en cachos llamados segmentos y le da a cada segmento
+un tipo de número de secuencia. (Los datagramas, también creados en la capa 4,
+son más simples y no necesitan romperse ni que se les de números
+de secuencia).\\
+Encajado en los datos de cada paquete hay un número de secuencia.
+Leyendo los números de secuencia, el sistema receptor sabe cuántos segmentos
+hay y cómo ensamblarlos de forma correcta.\\
+La capa 4, la capa de transporte tiene un papel muy importante: 
+es el software de segmentación/reensamblado. Parte de su trabajo es pedir
+los paquetes que no se recibieron en el orden correcto.
+
+\subsection{Comunicación basada en conexión vs. sin conexión}
+Algunos protocolos, como Simple Mail Transfer Protocol (SMTP) usado
+para enviar mensaje e-mail, requieren que el cliente de e-mail y el servidor
+establezcan una conexión antes de mandar un mensaje.\\
+De otro modo, algunos protocolos TCP/IP simplemente mandan los datos 
+sin primero esperar a que el sistema receptor esté listo.
+Cuando usamos Voice over IP (VoIP), por ejemplo, la llamada se hace
+sin verificar que el otro sistema esté ahí.\\
+
+\begin{nota}
+El protocolo orientado a la conexión es el Transmission Control Protocol (TCP).
 El protocolo sin conexión es el User Datagram Protocol (UDP).
+\end{nota}
 
-\subsection{Segmentos dentro de los paquetes}
-Para ver la capa de transporte en acción, hay que quitarle las direcciones IP
-a un paquete IP. Lo que queda es un bloque de datos en otro contenedor 
-llamado un segmento TCP. Los segmentos TCP tienen muchos otros campos 
-para asegurarse de que los datos lleguen a su destino en el orden correcto.
-Estos campos tienen nombres como puerto de origen, puerto de destino, numero de secuencia 
-y número de Acknowladgement.
+\subsection{Segmentos dentro de paquetes}
+Para ver la capa de transporte en acción, hay que quitar las direcciones IP
+del paquete IP. Lo que nos queda es un bloque de datos dentro de otro contenedor,
+llamado un $\textit{Segmento TCP}$. Los segmentos TCP tienen muichso otros campos
+para asegurarse de que los datos lleguen al destino en el orden correcto.
+Estos campos tienen nombres como Puerto de salida, Puerto de destino,
+Número de secuencia, Número de Ackwnoladgement.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]{Segmento.png}
+\caption{Segmento TCP}
 \end{figure}
 
-En este contexto, un puerto - un número entre 1 y 65,536- es un valor lógico
-asignado a aplicaciones o servicios específicos. Muchos segmentos TCP entran a una computadora.
-La computadora necesita una forma de determinar qué segmentos de TCP van a qué aplicaciones.
-Un servidor web, por ejmplo, ve mucho tráfico, pero escucha segmentos TCP con puertos de destino
-80 o 443, toma esos segmentos y los procesa. De igual manera, cada segmento TCP
-contiene otro número de puerto, el puerto de emisión, para que el cliente sepa que hacer 
-para regresar información.\\
-Los datos vienen de la capa de aplicación. La capa de transporete rompe los datos 
-en bloques, añadiendo números de puertos, números de secuencia y de ackwnloadgement, creando el
-segmento TCP. La capa de transporte luego pasa el segmento TCP a la capa de red, que crea un paquete IP.
-Aunque mucho tráfico en una red TCP/IP usa TCP en la capa de transporte, también existe UDP.
-Siguiendo el mismo proceso, la capa de transporte añade los números de puertos, número de longitud y 
-un checksum como un header y lo combina todo para crear un contenedor llamado un datagrama UDP.
-Un datagrama UDP carece de la mayoría de los campos que tiene un segmento TCP, simplemente
-porque a UDP no le importa si la computadora receptora recibe los datos.
+En este contexto, un $\textit{puerto}$ es un número entre 1 y 65,536,
+es un valor lógico asignado a aplicaciones o servicios específicos.
+Un ejemplo dejará esto claro. Muchos segmentos TCP llegan a una computadora.
+La computadora necesita una forma de saber qué segmentos TCP van a qué aplicaciones.
+Un servidor web, por ejemplo, ve mucho tráfico, pero escucha a los segmentos TCP
+con puerto de destino 80 o 443, agarra esos segmentos y los procesa.
+De igual manera, todo segmento TCP contiene otro número de puerto, el puerto de salida,
+para que el cliente sepa que hacer para regresar la información.\\
+Los datos vienen de la capa de aplicación (con algo de input de las capas
+de presentación y sesión). La capa de tranporte rompe esos datos en bloques,
+añadiendo núemeros de puerto y números de sucesión, creando un segmento TCP.
+La capa de tranporte luego manda el segmento TCP a la capa de red, que crea un paquete
+IP.\\
+Aunque mucho tráfico de una red TCP/IP usa TCP en la capa de tranporte, 
+hay otro protocolo, el User Datagram Protocol. Siguiendo el mismo proceso,
+la capa de transporte añade números de puertos, un número de longitud y 
+un checksum como headers y combina esto con los datos para crear un contenedor
+llamado un datagrama UDP. Un datagrama UDP no tiene la mayoría de campos
+que utilizan los segmentos TCP, simplemente porque a UDP no le importa 
+si la computadora receptora recibe los datos.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]{Datagrama.png}
+\caption{Datagrama UDP}
 \end{figure}
 
+\subsection{Hablando en la red - Capa 5, la capa de sesión}
+En una red, un sólo sistema puede estar hablando con muchos otros al mismo tiempo.
+Por ejemplo, la PC de Shannon tiene una impersora usada por todos los sistemas
+de MHTechED, así que existe la posibilidad de que cuando Scott intente 
+acceder al documento Word, otro sistema está mandando un trabajo de impresión 
+a la PC de Shannon.\\
+El sistema de Shannon debe dirigir estos archivos, trabajos de impresión,
+páginas web y demás a los programas adecuados. Adicionalmente,
+el sistema operativo debe permitir que un sistema haga una conexión 
+con otro sistema para verificar que el otro sistema pueda manejar lo que sea que 
+sistema inicial quiera hacer. Si el sistema de Bill quiere mandar un 
+trabajo de impresión a la impresora de Shannon, primero contacta
+a la computadora de Shannon para saber si puede manejar el trabajo de impresión.
+El software de sesión maneja esta parte de las redes, conectando 
+aplicaciones a aplicaciones.\\
 
+\subsection{Ve tus sesiones}
+¿Cuántas sesiones tiene un sistema típico corriendo al mismo tiempo?
+Bueno, si tienes una red TCP/IP, puedes correr el programa netstat 
+desde la línea de comandos para verlos todos. Abre una línea de comandos y escribe
+$$\textbf{netstat -a}$$
+Después presiona enter para ver las sesiones. Por ahora, simplemente aprecia que cada línea
+del output de netstat es una sesión. En linux también podemos correr el comando ss
+La capa de sesión, la capa 5 del modelo OSI, maneja todas las sesiones para un sistema.
+La capa de sesión inicia las sesiones, acepta sesiones entrantees y abre y cierra las sesiones
+existentes.\\
+Muchos sistemas operativos representan las sesiones usando una combinación
+de las direcciones IP y los números de puertos de ambos lados de la comunicación 
+TCP o UDP. Podemoms ver la sesión de un buscador web conectándose a un servidor web,
+por ejemplo, corriendo $\textbf{netstat -n}$. Regresará muchas líneas como esta:
+$$\textbf{TCP 192.168.4.34:45543     11.12.13.123:80    Established}$$
+
+Los números describen la sesión. Un cliente web con dirección IP 
+192.168.4.34 uando el puerto 45543, está en una sesión TCP con un servidor web
+usando la dirección IP 11.12.13.123.
+
+\subsection{Traducción - Capa 6, capa de presentación}
+La capa de presentación traduce los datos de las capas más bajas 
+a un formato que pueda usar la capa de aplicación y vice versa.
+esto se manifiesta de muchas maneras y no es muy claro. Esto pasa porque
+las redes TCP/IP no se mapean directamente al modelo OSI.\\
+Un número de protocolos funionan en más de una capa del modelo OSI y pueden 
+incluir la capa 6, de presentación. El protocolo de encripción usado en el 
+e-commerce, Transport Layer Security (TLS), por ejemplo, parece que se empieza
+en la capa 5 y luego encripta y desencripta en la capa 6.
+
+\subsection{Aplicaciones de red - Capa 7, la capa de aplicación}
+La última capa y la más visible de un ared es el software de las apliciones
+que la utilizan. Si queremos copiar un archivo de otro sistema en nuestra red,
+necesitamos un applet como Network en Windows 10 que permite 
+acceder a archivos de manera remota. Si queremos ver páginas web, debemos usar
+un buscador como Google Chrome o Mozilla Firefox. Las personas que usan una red
+la experimentan mediante las aplicaciones.\\
+Las aplicaciones pueden incluir funciones adicionales, como encripción,
+autentificación de usuarios y herramientas para controlar la parte visual de los datos.
+Pero estas funciones son específicas a las aplicaciones. 
+La capa de aplición es la capa 7 del modelo OSI. Mantén en mente que 
+la capa de aplicación no se refiere a las aplicaciones mismas. Se 
+refire al codigo incluido en todos los sitemas operativos que permiten 
+tener aplicaciones concientes de la red. Todos los sistemas operativos tienen
+Application Programming Interfaces (APis) que los programadores pueden usar
+para hacer sus programas concientes de la red. Una API, en general, le da 
+la capacidad a los programadores de extender las capacidades de sus aplicaciones
+
+\subsection{Encapsulación y desencapsulación}
+El término encapsulación engloba todo el proceso de preparar los datos
+para que vayan a una red. Esto incluye todos los pasos desde la aplicación a las capas 
+de Aplicación, Presentación, Transporte, Red y Enlace de Datos.
+Cada capa añade más información para que los datos lleguen al receptor correcto
+y que el receptor sepa qué hacer con los datos.\\
+La computadora receptora hace el proceso en reversa, quitando la información 
+extra de los headers conforme los datos suben por las capas. Este proceso inverso
+es llamado desencapsulación.\\
+La capa de transporte crea un segmento o datagrama y lo pasa a la capa de red. 
+Esa capa añade información de IP, encapsulando el segmento o datagrama en un paquete.
+La capa de enlace de datos envuelve todo el paquete en un frame para que sea enviado por al red.
+La NIC transforma el frame en bits para la transmisión por el medio.
+La NIC receptora recibe los bits y los trasforma en el frame,
+el sistema quita la información extra del frame para quedarse con un paquete IP.
+Luego, quita la información IP del paquete y se queda con un segmento TCP o un 
+datagrama UDP. Después, en el caso de un segmento TCP, ensambla los segmentos
+recibidos para pasarlos por la capa de presentación para finalmente llegar a la capa de aplicación.
+
+\section{El modelo OSI de siete capas y el trabajo remoto}
+Beth trabaja remotamente para una compañía como analista de datos.
+Exploremos su flujo de trabajo para ver cómo aplica el modelo OSI de siete capas.\\
+Beth se conecta el internet de forma inalámbrica desde su lapotp.
+Su compañía, como muchas otras, usa un número de diferentes servicios 
+en línea para coordinar su fuerza de trabajo. Estos servicios tienen
+nombres como Microsoft 365, Dropbox, Github, entre otros, pero fundamentalemnte
+estos servicios se encuentran en la Web, así que Beth pasa mucho tiempo de su día en su 
+buscador de preferencia, Firefox.\\
+En este escenario, la computadora de Beth no está conectada a un puerto Ethernet.
+No hay cables locales, su laptop ni siquiera tiene un puerto Ethernet.\\
+Las ondas de radio inalámbricas conectan a la laptop de Beth a un Wireless Access Point (WAP)
+que opera en la capa 1. De igual modo lo hacen todos los cables físicos que conectan su 
+WAP a su router, Internet Service Provider (ISP) y todos los routers entre su red y la 
+red de su compañía.\\
+La NIC inalámbrica de Beth ciertamente tiene una dirección MAC y se conecta a su Wireless 
+Access Point (WAP) usndo frames; el WAP usa las direcciones MAC para conectarse al switch local.
+Todo esto claramente sucede en la capa 2. Beth hace casi todo su trabajo
+via Web y, por lo tanto, depende casi enteramente en conexiones e interacciones 
+TCP/IP. Por definición, su laptop debe tener una dirección IP o dos (capa 3) y 
+debe encapsular y desencapsular segmentos y datagramas en la capa de transporte (capa 4).
+Pero el trabajo duro ocurre en la capa 7 con HTTP y  TLS (HTTPS), pues las herramientas Web
+se basan en estos protocolos.\\
+En pocas palabras, el modelo OSI de 7 capas nos da una manera de conceptualizar 
+las redes para determinar dónde es que se da un cierto error. 
+El modelo OSI puede aplicarse a una red simple o a una red más avanzada.\\
+Si Beth no puede imprimir con su impresora de red, por ejemplo, un modelo
+nos puede ayudar a solucionar el problema. Si su NIC muestra actividad, entonces
+usando el modelo OSI, podemos descartar las capas uno y dos. Nos movemos
+hacia arriba a la capa 3. Si su computadora tiene una dirección IP propia, podemos poner
+esa capa a un lado también y podemos checar las siguientes capas de una en una para 
+solucionar el problema.
+\begin{nota}
+  Beth accede a servidores para hacer su trabajo; su laptop es un cliente
+  de esos servidores. Así, el escenario anterior describe una red de tipo cliente-servidor típica.
+  En algunas circunstancias, Beth podría acceder a recursos distribuidos entre 
+  varias computadoras. Así, su computadora podría compartir recursos con otras.
+  Este tipo de red alternativa, tipificado por el protocolo de BitTorrent, 
+  es llamado peer-to-peer.
+\end{nota}
+
+\section{Preguntas}
+
+\begin{enumerate}
+  \item ¿A dónde manda los datos un Hub?
+    A todos los sitemas conectados al hub.
+  \item ¿Qué identifica de manera única a cada NIC?
+    Una dirección Media Access Control (MAC).
+  \item ¿Qué comando de Windows usamos para encontrar la dirección MAC de un sistema?
+    ipconfig /all
+  \item Una dirección MAC es conocida como una direccion ...
+    Física
+  \item Una NIC manda los datos en bloques llamados ...
+    Frames
+  \item ¿Cómo empieza un frame?
+   Con la dirección MAC del sistema receptor.
+  \item Un frame termina con 4 bytes especiales llamados el frame check sequence (FCS). ¿Qué hace el FCS?
+    Verifica que los datos llegaron correctamente.
+  \item ¿Cuál es un ejemplo de una dirección MAC?
+    00-50-56-A3-04-0C
+  \item ¿Qué capa del modelo OSI controla la segmentación y el reensamblado de los datos?
+    La capa de tranporte (Capa 4)
+  \item ¿Qué capa del modelo OSI lleva registro de las conexiones del sitema para llevar los datos a la computadora correcta?
+    La capa de sesión (Capa 5)
+\end{enumerate}
 \end{document}
