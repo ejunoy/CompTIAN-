@@ -635,4 +635,101 @@ solucionar el problema.
   \item ¿Qué capa del modelo OSI lleva registro de las conexiones del sitema para llevar los datos a la computadora correcta?
     La capa de sesión (Capa 5)
 \end{enumerate}
+
+\chapter{Cableado y topolgía}
+Cada red debe proveer un método para pasar datos de un sistema a otro. En la mayoría 
+de los casos, este método consiste de un tipo de cableado corriendo entre los sistemas,
+aunque la mayoría de redes de hoy en día incorporan métodos inalámbricos para mover 
+los datos también. Usar estos cables trae consigo una serie de problemas que necesitamos 
+comprender para trabajar con una red. ¿Cómo conectan estos cables a las computadoras?,
+¿cada computadora en la red tiene un cable que va a un punto central?, ¿un sólo cable
+corre por el techo y todas la computadoras se conectan a él?\\
+
+Más aún, los manufactores necesitan estándares para hacer equipos de red que funcionen
+bien entre ellos. ¿Qué tipo de cable?, ¿qué calidad de cobre o de fibra?, ¿qué tan ancha
+debe ser?, ¿quién define estos estándares?\\
+Primero aprenderemos de la topología de la red. Después, aprenderemos de los cables. 
+Por último, aprenderemos de los comites del IEEE que crean estos estándares.
+
+\section{Topologías de red}
+Las redes de computadoras usan muchos tipos distintos de topologías, o maneras de conectar 
+computadoras y otros dispositivos como switches e impresoras entre ellos.
+\begin{nota}
+  Las redes inalámbricas también usan topolgías. Cubriremos estas topologías -infraestructua y ad hoc-
+\end{nota}
+
+\subsection{Bus y Ring}
+La primera generación de redes cableadas usaban una de dos topologías. Una 
+$\textit{topología de Bus}$ usa un sólo cable (Bus) que conectaba a todas las computadoraes en una
+línea. Una $\textit{topología de Ring}$ conecta a todas las computadoras con un anillo de cable.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{Bus-Ring.jpg}
+\caption{Topologías Bus y Ring}
+\end{figure}
+
+Los datos fluyen de manera distinta entre las redes con topologías Bus y Ring, creando 
+difrentes problemas y soluciones. En las redes con topología de Bus, los datos de cada 
+computadora viajan por todo el cable. Una red usando una topología de Bus necesita 
+terminaciones en cada uno de sus extremos, para evitar que las señales de una computadora
+se reflejen en cada extremo del cable, tirando la red de forma rápida.\\
+
+En contraste, en una topología de ring, el tráfico se mueve en un círculo de una computadora 
+a la siguiente en la misma dirección. Sin un final al cable, las redes ring no necesitan terminación.\\
+Las topologías de bus y ring funcionaban bien, pero tenían un mismo problema: toda la red 
+dejaba de funcionar si el cable se rompía en cualquier punto. Los extremos rotos de 
+una topología bus no tenían las terminaciones necesarias, lo que causaba reflexión entre 
+las computadoras aún conectadas. Una ruptura en una topología ring hacía que se rompiera el
+circuito y para el flujo de los datos.
+
+\subsection{Star}
+La topología de estrella, también llamada $hub-and-spoke$, usaba una caja central 
+de conexión para todas las computadoras de la red. Las redes con topología star 
+tienen un gran beneficio sobre las topologías bus y ring ofreciendo tolerancia a
+las fallas, si uno de los cables se rompe, todas las demás computadoras aún se 
+pueden comunicar. Las redes con topología bus y ring eran populares y baratas de
+implementar, así que la topología star de red no fue muy popular. 
+Los diseñadores de hardware de red no podían rediseñar de manera sencilla las redes
+existentes para usar la topología star.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{Star.jpg}
+\caption{Topología star}
+\end{figure}
+
+\subsection{Hybrid}
+Aunque los diseñadores de redes no podían usar fácilmente la topología star, 
+los beneficios eran demasiados, motivando a que se usaran topologías star sin 
+tener que rediseñar mucho la red. La idea de los diseñadores de redes ring fue
+encoger el anillo a una caja pequeña. Lo mismo hicieron los de las redes bus.\\
+Físicamente, ambos diseños híbridos se veían como una star, pero si los examinabamos
+lógicamente, actuaban como una ring o bus. Cuando hablamos de topología hoy en día, 
+separamos cómo se ven físicamente los cables (topología física) de como 
+se mueven las señales (singal topology o logical topology).
+
+
+\subsection{Mesh}
+Las topologías no son sólo para redes cableadas. Las redes inalámbricas también 
+necesitan topologías para llevar los datos de un sistema a otro, pero usando
+ondas de radio en lugar de cables, lo cual involucra topologías distintas.\\
+Los dispositivos inalámbricos se pueden conectar mediante una topología mesh, 
+donde cada computadora está conectada a las demás mediante dos o más rutas.
+Algunas de estas rutas requieren que los datos viajen entre varias computadoras 
+de la mesh.\\
+Hay dos tipos de topología mesh, parcial y completa. En una topología mesh parcial, 
+al menos dos computadoras tienen conexiones redundantes. En una red full mesh cada computadora 
+está conectada a las demás.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{Mesh.jpg}
+\caption{Topologías Mesh}
+\end{figure}
+
+\subsection{Parámetros de una topología}
+
+
+
 \end{document}
